@@ -1,2 +1,4 @@
-python-payment, a flexible wrapper for payment processing.
+## python-payment
+
+A generic standardized wrapper for payment gateways in Python.
 
