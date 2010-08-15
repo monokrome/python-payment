@@ -44,7 +44,7 @@ class GatewayFactory(object):
         gateway_module = __import__(
                    gateway_modulename,
                    globals(), locals(),
-                   -1
+                   gateway_classname, -1
         )
 
         if hasattr(gateway_module, gateway_classname):
