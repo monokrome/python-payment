@@ -1,4 +1,5 @@
-## python-payment
+# python-payment
+#### author: Brandon R. Stoner <monokrome@monokro.me>
 
-A generic standardized wrapper for payment gateways in Python.
+A library for abstracting the payment process into one single, flexible library that supports multiple gateways, payment methods, and trasactions in an intuitive format.
 
