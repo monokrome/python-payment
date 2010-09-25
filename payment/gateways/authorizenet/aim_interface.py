@@ -1,5 +1,5 @@
-from payment.gateways import Gateway
+from payment.gateways import HTTPGateway
 
-class AuthorizeNetAim(Gateway):
-    pass
+class AuthorizeNetAim(HTTPGateway):
+    request_url = 'authorize.net/gateway/transact.dll'
 
