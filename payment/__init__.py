@@ -1,1 +1,2 @@
+from transaction import Transaction
 
