@@ -1,0 +1,3 @@
+class Method(object):
+    pass
+
