@@ -4,7 +4,7 @@ import re
 gateway_name_conversion_expression = '/^\d+|^\d+|[^\w\d]|\s$/'
 
 class GatewayFactory(object):
-    """ Used to recieve gateway objects based with directly importing. """
+    """ Used to recieve gateway objects easily without explicit importing. """
 
     def get_by_name(self, gateway_name):
         """ Gets a gateway object based on the gateway's real name. """
