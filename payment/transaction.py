@@ -41,3 +41,23 @@ class Transaction(object):
         """ Cancels a transactions.. """
         return self.process(gateway=gateway, method='void')
 
+class TransactionPool(object):
+    """ Manages a list of transactions that need to be processed in the same way. """
+    transactions = []
+
+    def process(self, method=None):
+        for transaction in transactions:
+            transaction.process(self, method)
+
+    def charge(self, gateway=None):
+        return self.process('charge')
+
+    def authorize(self, gateway=None):
+        return self.process('authorize')
+
+    def credit(self, gateway=None):
+        return self.process('credit')
+
+    def void(self, gateway=None):
+        return self.process('void')
+
