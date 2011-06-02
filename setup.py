@@ -9,4 +9,3 @@ setup(
     download_url='http://github.com/monokrome/python-payment/',
     packages=['payment'],
 )
-

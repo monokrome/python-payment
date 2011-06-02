@@ -60,4 +60,3 @@ class TransactionPool(object):
 
     def void(self, gateway=None):
         return self.process('void')
-

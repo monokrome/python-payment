@@ -55,4 +55,3 @@ class Card(object):
 
     def __str__(self):
         return self.get_last_digits(replacement_char='X')
-

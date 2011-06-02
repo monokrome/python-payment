@@ -38,4 +38,3 @@ class GatewayFactory(object):
     def get_module_name(self, class_name):
         """ Takes a classname and returns a module name for that class name """
         return class_name.lower()
-

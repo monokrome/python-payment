@@ -51,4 +51,3 @@ class HTTPGateway(Gateway):
             request_url = 'http://' + request_url
 
         return request_url
-
