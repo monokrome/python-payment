@@ -14,7 +14,7 @@ card_validation_expression  = '^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:0
 
 class Card(object):
     type = None
-    validified = False
+    validated = False
     cvv = None
     expiration = None
     _number = None
@@ -25,13 +25,13 @@ class Card(object):
         for type in card_types:
             if re.match(card_types[type], str(self.number)):
                 self.type = type
-                self.validified = True
+                self.validated = True
                 return type
 
         self.type = None
 
         if re.match(card_validation_expression, str(self.number)):
-            self.validified = True
+            self.validated = True
             return True
 
         return False
