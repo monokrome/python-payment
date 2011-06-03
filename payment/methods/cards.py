@@ -46,7 +46,7 @@ class Card(object):
 
     number = property(get_number, set_number)
 
-    def get_last_digits(self, count=4, replacement_char=None):
+    def get_last_digits(self, count=4, replacement_char='X'):
         final_result = self.number[-count:]
 
         if replacement_char is not None:
@@ -55,4 +55,4 @@ class Card(object):
         return final_result
 
     def __str__(self):
-        return self.get_last_digits(replacement_char='X')
+        return self.get_last_digits()
