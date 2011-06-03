@@ -20,6 +20,16 @@ valid_card_numbers = {
 invalid_card_number = 1234567812345678
 
 class TestCards(unittest.TestCase):
+
+    def test_card_number_updating(self):
+        """" Tests whether or not the card number property is working right.
+        """
+
+        card = cards.Card()
+        card.number = valid_card_numbers['visa']
+
+        self.assertEquals(card.number, valid_card_numbers['visa'])
+
     def test_visa_validation(self):
         """ Tests whether or not visa cards are properly detected.
 
