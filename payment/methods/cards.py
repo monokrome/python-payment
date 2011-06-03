@@ -32,9 +32,10 @@ class Card(object):
 
         if re.match(card_validation_expression, str(self.number)):
             self.validated = True
-            return True
+        else:
+            self.validated = False
 
-        return False
+        return self.validated
 
     def set_number(self, number):
         self._number = number
