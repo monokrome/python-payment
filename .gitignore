@@ -1,3 +1,6 @@
+# Cached Python bytecode
+*.pyc
+
 # Files related to the development environment.
 bin/*
 lib/*
