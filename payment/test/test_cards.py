@@ -4,6 +4,7 @@ from payment.methods import cards
 error_messages = {
     'validation_error': 'Could not validate accurate {0} test number: {1}',
     'detection_error': 'Could not detect accurate {0} test number: {1}',
+    'invalid_card_error': 'Inaccurate card number considered accurate: {0}',
 }
 
 # Maps card types to valid test numbers
@@ -112,6 +113,17 @@ class TestCards(unittest.TestCase):
         self.assertEquals(card.type, 'jcb',
             error_messages['detection_error'].format('jcb',
                                                      card.number))
+
+    def test_invalid_card_number(self):
+        """ Tests whether or not card validation fails properly.
+
+        """
+
+        card = cards.Card()
+        card.number = 1234567812345678
+
+        self.assertFalse(card.validated,
+            error_messages['invalid_card_error'].format(card.number))
 
     # TODO How do I test that undetectable card types work? As far as I
     # know, all card types are detected. And if I find one that isn't, why
