@@ -5,6 +5,7 @@ error_messages = {
     'validation_error': 'Could not validate accurate {0} test number: {1}',
     'detection_error': 'Could not detect accurate {0} test number: {1}',
     'invalid_card_error': 'Inaccurate card number considered accurate: {0}',
+    'wrong_last_digits': 'Got last {0} digits of {1} as {2} instead of {3}.',
 }
 
 # Maps card types to valid test numbers
@@ -20,6 +21,27 @@ valid_card_numbers = {
 invalid_card_number = 1234567812345678
 
 class TestCards(unittest.TestCase):
+    """ Processes required in order to cover the testing of card processing.
+
+    """
+
+    def test_last_digits(self):
+        """ Tests whether or not get_last_digits is getting the right values.
+
+        """
+
+        card = cards.Card()
+        card.number = 4111111111111111
+
+        count = 4
+        last_digits = card.get_last_digits(count=count, replacement_char='X')
+        expected_digits = 'XXXX-XXXX-XXXX-{0}'.format(1111)
+
+        self.assertEquals(last_digits, expected_digits,
+                error_messages['wrong_last_digits'].format(count,
+                                                           card.number,
+                                                           last_digits,
+                                                           expected_digits))
 
     def test_card_number_updating(self):
         """" Tests whether or not the card number property is working right.
