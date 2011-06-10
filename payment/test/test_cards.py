@@ -6,6 +6,7 @@ error_messages = {
     'detection_error': 'Could not detect accurate {0} test number: {1}',
     'invalid_card_error': 'Inaccurate card number considered accurate: {0}',
     'wrong_last_digits': 'Got last {0} digits of {1} as {2} instead of {3}.',
+    'generic_validation_error': 'Validating {0} failed without type detection.',
 }
 
 # Maps card types to valid test numbers
@@ -157,6 +158,12 @@ class TestCards(unittest.TestCase):
         self.assertFalse(card.validated,
             error_messages['invalid_card_error'].format(card.number))
 
-    # TODO How do I test that undetectable card types work? As far as I
-    # know, all card types are detected. And if I find one that isn't, why
-    # wouldn't I detect it?
+    def test_generic_validation(self):
+        """ Tests whether or not the generic validation is working as expected.
+
+        """
+
+        card = cards.Card()
+        card.number = valid_card_numbers['visa']
+        self.assertTrue(card.guess_type(False),
+            error_messages['generic_validation_error'].format(card.number))

@@ -20,14 +20,15 @@ class Card(object):
     _number = None
 
     """ Represents a card that a payment can be made with. """
-    def guess_type(self):
+    def guess_type(self, detection=True):
         """ Tries to guess the type of the card that has been provided. """
 
-        for type in card_types:
-            if re.match(card_types[type], str(self.number)):
-                self.type = type
-                self.validated = True
-                return type
+        if detection is True:
+            for type in card_types:
+                if re.match(card_types[type], str(self.number)):
+                    self.type = type
+                    self.validated = True
+                    return type
 
         self.type = None
 
