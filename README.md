@@ -1,4 +1,4 @@
 # python-payment
-#### author: Brandon R. Stoner <monokrome@monokro.me>
+#### author: Bailey Stoner <monokrome@monokro.me>
 
 A library for abstracting the payment process into one single, flexible library that supports multiple gateways, payment methods, and transactions via an intuitive interface.
