@@ -1,2 +1,2 @@
-class Method(object):
+class Method:
     pass

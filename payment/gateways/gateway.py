@@ -1,53 +1,47 @@
-from exceptions import NotImplementedError
-import urllib
+from __future__ import annotations
 
-method_not_implemented_message = 'This gateway has not implemented the \"%s\" method.'
+from typing import Any
+from urllib.parse import urlencode
+from urllib.request import urlopen
 
-class Gateway(object):
-    """ A generic interface that gateways should extend. """
-    name = None
+METHOD_NOT_IMPLEMENTED_MESSAGE = 'This gateway has not implemented the "%s" method.'
 
-    def charge(self):
-        """ Charges the account for the transaction. """
-        raise NotImplementedError(method_not_implemented_message % 'charge')
 
-    def authorize(self):
-        """ Verifies that the funds are available to charge the
-            transaction at a later time. """
-        raise NotImplementedError(method_not_implemented_message % 'authorize')
+class Gateway:
+    name: str | None = None
+    success: bool = False
 
-    def credit(self):
-        """ Credits a specified amount to the transaction. """
-        raise NotImplementedError(method_not_implemented_message % 'credit')
+    def charge(self, **kwargs: Any) -> Any:
+        raise NotImplementedError(METHOD_NOT_IMPLEMENTED_MESSAGE % "charge")
 
-    def void(self):
-        """ Voids the transaction. """
-        raise NotImplementedError(method_not_implemented_message % 'void')
+    def authorize(self, **kwargs: Any) -> Any:
+        raise NotImplementedError(METHOD_NOT_IMPLEMENTED_MESSAGE % "authorize")
 
-    def create_transaction(response):
-        """ Takes a gateway transaction response and converts it into a
-            Transaction object containing response data. """
+    def credit(self, **kwargs: Any) -> Any:
+        raise NotImplementedError(METHOD_NOT_IMPLEMENTED_MESSAGE % "credit")
+
+    def void(self, **kwargs: Any) -> Any:
+        raise NotImplementedError(METHOD_NOT_IMPLEMENTED_MESSAGE % "void")
+
+    def create_transaction(self, response: Any) -> Any:
+        pass
+
 
 class HTTPGateway(Gateway):
-    """ A gateway that is communicated with over the HTTP or HTTPS protocol. """
-    use_https = True
-    request_url = None
+    use_https: bool = True
+    request_url: str | None = None
 
-    def send_request(self, data, url=None):
-        """ Send a requet to the gateway over HTTP. """
+    def send_request(self, data: dict[str, Any], url: str | None = None) -> Any:
         if url is None:
-             url = self.request_url
+            url = self.request_url
 
-        response = urllib.urlopen(url, urllib.urlencode(data))
+        response = urlopen(url, urlencode(data).encode())  # type: ignore[arg-type]
         return self.create_transaction(response)
 
-    def get_request_url(self):
-        """ Gets the URL that should be used to make a decision on this gateway. """
-        request_url = self.request_url
+    def get_request_url(self) -> str:
+        request_url = self.request_url or ""
 
-        if self.use_https is False:
-            request_url = 'https://' + request_url
+        if self.use_https is True:
+            return "https://" + request_url
         else:
-            request_url = 'http://' + request_url
-
-        return request_url
+            return "http://" + request_url

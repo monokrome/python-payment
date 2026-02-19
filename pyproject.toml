@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "payment"
+version = "0.1.0"
+description = "A library for abstracting payments into a single flexible interface supporting multiple gateways, methods, and transactions."
+readme = "README.md"
+license = "BSD-2-Clause"
+requires-python = ">=3.12"
+authors = [
+    { name = "Brandon R. Stoner", email = "monokrome@monokro.me" },
+]
+
+[project.urls]
+Homepage = "https://github.com/monokrome/python-payment"
+Repository = "https://github.com/monokrome/python-payment"
+
+[tool.setuptools.packages.find]
+include = ["payment*"]
+exclude = ["payment.test*"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true

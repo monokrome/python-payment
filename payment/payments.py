@@ -1,3 +1,3 @@
-class Payment(object):
-    amount = None
-    frequency = None
+class Payment:
+    amount: float | None = None
+    frequency: str | None = None

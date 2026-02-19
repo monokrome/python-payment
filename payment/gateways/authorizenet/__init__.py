@@ -1,4 +1,5 @@
-from aim_interface import AuthorizeNetAim
+from .aim_interface import AuthorizeNetAim
 
-# AIM is the default method for authorizenet integration.
 AuthorizeNet = AuthorizeNetAim
+
+__all__ = ["AuthorizeNet", "AuthorizeNetAim"]

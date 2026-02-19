@@ -1,16 +1,26 @@
-from errors import NoGatewayError
+from __future__ import annotations
 
-no_gateway_error_text = 'You must provide at least one gateway for processing'
+from typing import Any
 
-class Transaction(object):
-    gateways = []
-    identifier = None
-    success = None
+from .errors import NoGatewayError
+from .gateways.gateway import Gateway
 
-    def process(self, method=None):
-        """ Performs an arbitrary type of processing through the gateway(s). """
+NO_GATEWAY_ERROR_TEXT = "You must provide at least one gateway for processing"
+
+
+class Transaction:
+    gateways: list[Gateway]
+    identifier: str | None
+    success: bool | None
+
+    def __init__(self) -> None:
+        self.gateways = []
+        self.identifier = None
+        self.success = None
+
+    def process(self, method: str = "") -> Any | None:
         if len(self.gateways) < 1:
-            raise NoGatewayError(no_gateway_error_text)
+            raise NoGatewayError(NO_GATEWAY_ERROR_TEXT)
 
         self.success = False
 
@@ -19,44 +29,43 @@ class Transaction(object):
                 method_reference = getattr(gateway, method)
                 gateway_transaction = method_reference(transaction=self)
 
-                if gateway.success == True:
+                if gateway.success is True:
                     self.success = True
                     return gateway_transaction
 
-    def charge(self, gateway=None):
-        """ Starts the process of transfering the funds from our payment
-            method through our gateway. """
-        return self.process(gateway=gateway, method='charge')
+        return None
 
-    def authorize(self, gateway=None):
-        """ An authorization is made in order to check whether the funds
-            are available without actually charging the card. """
-        return self.process(gateway=gateway, method='authorize')
+    def charge(self) -> Any | None:
+        return self.process(method="charge")
 
-    def credit(self):
-        """ Credits an amount of money back to the method of payment. """
-        return self.process(gateway=gateway, method='credit')
+    def authorize(self) -> Any | None:
+        return self.process(method="authorize")
 
-    def void(self):
-        """ Cancels a transactions.. """
-        return self.process(gateway=gateway, method='void')
+    def credit(self) -> Any | None:
+        return self.process(method="credit")
 
-class TransactionPool(object):
-    """ Manages a list of transactions that need to be processed in the same way. """
-    transactions = []
+    def void(self) -> Any | None:
+        return self.process(method="void")
 
-    def process(self, method=None):
-        for transaction in transactions:
-            transaction.process(self, method)
 
-    def charge(self, gateway=None):
-        return self.process('charge')
+class TransactionPool:
+    transactions: list[Transaction]
 
-    def authorize(self, gateway=None):
-        return self.process('authorize')
+    def __init__(self) -> None:
+        self.transactions = []
 
-    def credit(self, gateway=None):
-        return self.process('credit')
+    def process(self, method: str = "") -> None:
+        for transaction in self.transactions:
+            transaction.process(method)
 
-    def void(self, gateway=None):
-        return self.process('void')
+    def charge(self) -> None:
+        self.process("charge")
+
+    def authorize(self) -> None:
+        self.process("authorize")
+
+    def credit(self) -> None:
+        self.process("credit")
+
+    def void(self) -> None:
+        self.process("void")

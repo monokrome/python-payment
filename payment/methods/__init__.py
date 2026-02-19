@@ -1,1 +1,3 @@
-from cards import Card
+from .cards import Card
+
+__all__ = ["Card"]

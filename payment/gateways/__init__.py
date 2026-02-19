@@ -1,4 +1,4 @@
-__all__ = ['Gateway', 'GatewayFactory',]
+__all__ = ["Gateway", "HTTPGateway", "GatewayFactory"]
 
-from gateway import Gateway, HTTPGateway
-from factory import GatewayFactory
+from .factory import GatewayFactory
+from .gateway import Gateway, HTTPGateway
